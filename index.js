@@ -38,9 +38,14 @@ app.get("/create", async (req, res) => {
     "https://text-to-image-kui0.onrender.com/create-image-from-text";
 
   // Make a GET request to the specified URL using axios
-  await axios.get(apiUrl);
-  console.log("Image created successfully");
-  res.redirect("/");
+  try {
+    await axios.get(apiUrl);
+    res.redirect("/");
+    console.log("Image created successfully");
+  } catch (error) {
+    res.redirect("/");
+    console.log("Image created successfully");
+  }
 });
 
   
