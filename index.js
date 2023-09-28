@@ -4,7 +4,6 @@ const dotenv = require("dotenv");
 const app = express();
 const cors = require("cors");
 const axios = require('axios'); // Import Axios
-const express = require('express');
 
 // Load environment variables
 dotenv.config();
