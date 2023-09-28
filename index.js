@@ -38,19 +38,20 @@ app.get('/create', async (req, res) => {
 
   try {
     const response = await axios.get(apiUrl);
-    console.log(response.status)
+    console.log(response);
+
     if (response.status === 503) {
       console.log('Received 503 status code, redirecting to homepage');
-      console.log('Image created successfully');
+      res.redirect('/');
     } else {
       console.log('Image created successfully');
+      res.redirect('/');
     }
   } catch (error) {
-    console.log('Image created successfully');
-    console.log('Error while making the API request:', error);
-  } finally {
-    // Redirect to the homepage regardless of the response or error
+    // If there's an error (including a 503 response), this block is executed.
+    // You are redirecting to the homepage in case of an error.
     res.redirect('/');
+    console.log('Error while making the API request:', error);
   }
 });
   
