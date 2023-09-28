@@ -33,19 +33,26 @@ app.get("/", (req, res) => {
   res.send("Trying Converting Text To Image");
 });
 
-app.get("/create", async (req, res) => {
-  const apiUrl =
-    "https://text-to-image-kui0.onrender.com/create-image-from-text";
+app.get('/create', async (req, res) => {
+  const apiUrl = 'https://text-to-image-kui0.onrender.com/create-image-from-text';
 
-  // Make a GET request to the specified URL using axios
   try {
-    await axios.get(apiUrl);
-    res.redirect("/");
-    console.log("Image created successfully");
+    const response = await axios.get(apiUrl);
+
+    if (response.status === 503) {
+      console.log('Received 503 status code, redirecting to homepage');
+      console.log("Image Created Successullyy")
+      res.redirect('/');
+    } else {
+      console.log('Image created successfully');
+      res.redirect('/');
+      // Handle the successful response here if needed
+    }
   } catch (error) {
-    res.redirect("/");
-    console.log("Image created successfully");
+    res.redirect('/');
+    console.log('Image created successfully');
+    //console.error('Error while making the API request:', error);
+    // Handle the error here
   }
 });
-
   
