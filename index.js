@@ -34,19 +34,13 @@ app.get("/", (req, res) => {
 });
 
 app.get("/create", async (req, res) => {
-  try {
-    // Define the URL for the GET request
-    const apiUrl =
-      "https://text-to-image-kui0.onrender.com/create-image-from-text";
+  const apiUrl =
+    "https://text-to-image-f1zm.onrender.com/create-image-from-text";
 
-    // Make a GET request to the specified URL using axios
-    await axios.get(apiUrl);
-    console.log("Image created successfully");
-    //res.redirect("/");
-  } catch (error) {
-    // Handle any errors that occurred during the request
-    console.error("Error:", error.message);
-    //res.redirect("/");
-    //res.status(500).json({ error: "An error occurred" });
-  }
+  // Make a GET request to the specified URL using axios
+  await axios.get(apiUrl);
+  console.log("Image created successfully");
+  res.redirect("/");
 });
+
+  
