@@ -42,7 +42,9 @@ app.get('/create', async (req, res) => {
 
     if (response.status === 503) {
       console.log('Received 503 status code, redirecting to homepage');
-      res.redirect('/');
+
+      // Set the response status code to 200 before redirecting
+      res.status(200).redirect('/');
     } else {
       console.log('Image created successfully');
       res.redirect('/');
