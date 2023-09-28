@@ -53,6 +53,6 @@ app.get("/create", async (req, res) => {
   } catch (error) {
     console.error("Error creating image:", error);
     // Handle the error and potentially redirect the user to an error page
-    res.redirect("/error"); // You can specify the error path
+    res.redirect("/"); // You can specify the error path
   }
 });
