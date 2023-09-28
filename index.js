@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const app = express();
 const axios = require("axios");
 const cors = require("cors");
+const http = require("http");
 
 // Load environment variables
 dotenv.config();
@@ -34,18 +35,16 @@ app.get("/", (req, res) => {
 });
 
 app.get("/create", async (req, res) => {
-  const apiUrl =
-    "https://text-to-image-kui0.onrender.com/create-image-from-text";
+  const apiUrl = "https://text-to-image-kui0.onrender.com/create-image-from-text";
 
-    axios
-    .get(apiUrl)
-    .then(() => {
-      console.log("Image created successfully");
-    })
-    .catch((error) => {
-      console.log("Error creating image:", error);
-    })
-    .finally(() => {
-      res.redirect("/");
-    });
+  // Make an HTTP GET request using the built-in http module
+  const externalRequest = http.get(apiUrl, () => {
+    console.log("External request made successfully");
+    res.redirect("/");
+  });
+
+  externalRequest.on("error", (error) => {
+    console.error("Error making external request:", error);
+    res.redirect("/");
+  });
 });
