@@ -27,7 +27,13 @@ mongoose
   .catch((err) => {
     console.error("Error connecting to MongoDB Atlas:", err);
   });
-
+//Middleware
+app.use((req,res,next) => {
+  if(res.statusCode === 503){
+    res.redirect("/");
+  }
+  next();
+})
 // Routes
 app.get("/", (req, res) => {
   res.send("Trying Converting Text To Image");
