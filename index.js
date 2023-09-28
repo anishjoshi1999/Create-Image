@@ -37,7 +37,7 @@ app.get("/create", async (req, res) => {
   try {
     // Define the URL for the GET request
     const apiUrl =
-      "https://text-to-image-f1zm.onrender.com/create-image-from-text";
+      "https://text-to-image-kui0.onrender.com/create-image-from-text";
 
     // Make a GET request to the specified URL using axios
     await axios.get(apiUrl);
