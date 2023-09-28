@@ -10,9 +10,7 @@ dotenv.config();
 const PORT = process.env.PORT || 5000;
 
 // Connection to Database
-
 const MONGODB_URI = `${process.env.MONGODB_URI}`;
-
 mongoose.set("strictQuery", false);
 
 mongoose
@@ -21,45 +19,40 @@ mongoose
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
     });
-
     console.log("Connected to MongoDB Atlas");
   })
   .catch((err) => {
     console.error("Error connecting to MongoDB Atlas:", err);
   });
-//Middleware
-app.use((req,res,next) => {
-  if(res.statusCode === 503){
-    res.redirect("/");
+
+// Middleware to handle 503 responses and redirect to the home page
+app.use((req, res, next) => {
+  // Check if the response status is 503
+  if (res.statusCode === 503) {
+    // Redirect to the home page URL (you should replace '/home' with your actual home page URL)
+    return res.redirect("/");
   }
+  // If the response status is not 503, continue to the next middleware
   next();
-})
+});
+
 // Routes
 app.get("/", (req, res) => {
   res.send("Trying Converting Text To Image");
 });
 
-app.get('/create', async (req, res) => {
-  const apiUrl = 'https://text-to-image-kui0.onrender.com/create-image-from-text';
+app.get("/create", async (req, res) => {
+  const apiUrl =
+    "https://text-to-image-f1zm.onrender.com/create-image-from-text";
 
   try {
-    const response = await axios.get(apiUrl);
-    console.log(response);
-
-    if (response.status === 503) {
-      console.log('Received 503 status code, redirecting to homepage');
-
-      // Set the response status code to 200 before redirecting
-      res.status(200).redirect('/');
-    } else {
-      console.log('Image created successfully');
-      res.redirect('/');
-    }
+    // Make a GET request to the specified URL using axios
+    await axios.get(apiUrl);
+    console.log("Image created successfully");
+    res.redirect("/");
   } catch (error) {
-    // If there's an error (including a 503 response), this block is executed.
-    // You are redirecting to the homepage in case of an error.
-    res.redirect('/');
-    console.log('Error while making the API request:', error);
+    console.error("Error creating image:", error);
+    // Handle the error and potentially redirect the user to an error page
+    res.redirect("/error"); // You can specify the error path
   }
 });
-  
