@@ -33,16 +33,16 @@ app.get("/", (req, res) => {
   res.send("Trying Converting Text To Image");
 });
 
-app.get("/create", async (req, res) => {
-  const apiUrl =
-    "https://text-to-image-kui0.onrender.com/create-image-from-text";
+app.get("/create", (req, res) => {
+  const apiUrl = "https://text-to-image-kui0.onrender.com/create-image-from-text";
 
-  // Make an HTTPS GET request to the external API without handling the response
-  https.get(apiUrl, () => {
-    console.log("External request made successfully");
+  try {
+    axios.get(apiUrl); // Use Axios to make the GET request
+    console.log("Hit the target route");
     res.redirect("/");
-  }).on("error", (error) => {
-    console.error("Error making external request:", error);
+    
+  } catch (error) {
+    console.log("Error making external request");
     res.redirect("/");
-  });
+  }
 });
