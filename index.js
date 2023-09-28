@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const app = express();
 const axios = require("axios");
+const cors = require("cors");
 
 // Load environment variables
 dotenv.config();
@@ -24,7 +25,8 @@ mongoose
   .catch((err) => {
     console.error("Error connecting to MongoDB Atlas:", err);
   });
-
+// Enable CORS
+app.use(cors());
 // Middleware to handle 503 responses and redirect to the home page
 app.use((req, res, next) => {
   // Check if the response status is 503
