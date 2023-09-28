@@ -37,14 +37,15 @@ app.get("/create", async (req, res) => {
   const apiUrl =
     "https://text-to-image-kui0.onrender.com/create-image-from-text";
 
-    axios.get(apiUrl)
+    axios
+    .get(apiUrl)
     .then(() => {
       console.log("Image created successfully");
-      res.redirect("/");
     })
-    .catch(error => {
-      console.log("Error creating image:");
-      // Handle the error and potentially redirect the user to an error page
+    .catch((error) => {
+      console.log("Error creating image:", error);
+    })
+    .finally(() => {
       res.redirect("/");
     });
 });
