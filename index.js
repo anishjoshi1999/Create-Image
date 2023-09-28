@@ -42,11 +42,11 @@ app.get("/create", async (req, res) => {
     // Make a GET request to the specified URL using axios
     await axios.get(apiUrl);
     console.log("Image created successfully");
-    res.redirect("/");
+    //res.redirect("/");
   } catch (error) {
     // Handle any errors that occurred during the request
     console.error("Error:", error.message);
-    res.redirect("/");
+    //res.redirect("/");
     //res.status(500).json({ error: "An error occurred" });
   }
 });
