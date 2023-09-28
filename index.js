@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const app = express();
 const cors = require("cors");
-const http = require("http");
+const https = require("https");
 
 // Load environment variables
 dotenv.config();
@@ -37,13 +37,11 @@ app.get("/create", async (req, res) => {
   const apiUrl =
     "https://text-to-image-kui0.onrender.com/create-image-from-text";
 
-  // Make an HTTP GET request using the built-in http module
-  const externalRequest = http.get(apiUrl, () => {
+  // Make an HTTPS GET request to the external API without handling the response
+  https.get(apiUrl, () => {
     console.log("External request made successfully");
     res.redirect("/");
-  });
-
-  externalRequest.on("error", (error) => {
+  }).on("error", (error) => {
     console.error("Error making external request:", error);
     res.redirect("/");
   });
